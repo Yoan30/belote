@@ -1,10 +1,6 @@
-// Entry point for Belote game
-console.log('Belote Game v1.0.0')
+import { registerSW } from './pwa/registerSW'
 
-// Main application will be implemented in subsequent commits
+registerSW()
+
 export const GAME_VERSION = '1.0.0'
-import { registerSW } from './pwa/registerSW';
-registerSW();
-import { registerSW } from './pwa/registerSW';
-registerSW();
-
+console.log('Belote Game', GAME_VERSION)
