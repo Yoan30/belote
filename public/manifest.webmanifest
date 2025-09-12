@@ -1,0 +1,9 @@
+{
+  "name": "Belote",
+  "short_name": "Belote",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0c0f17",
+  "theme_color": "#346a1c",
+  "icons": []
+}
