@@ -10,8 +10,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "type-check": "tsc --noEmit",
@@ -30,14 +30,25 @@
     "@vitest/coverage-v8": "^1.4.0",
     "@vitest/ui": "^1.4.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "happy-dom": "^13.10.1",
     "prettier": "^3.2.5",
     "typescript": "^5.4.2",
     "vite": "^5.1.6",
     "vitest": "^1.4.0"
   },
-  "engines": { "node": ">=18.0.0" },
-  "keywords": ["belote", "card-game", "typescript", "pixijs", "pwa", "game"],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "belote",
+    "card-game",
+    "typescript",
+    "pixijs",
+    "pwa",
+    "game"
+  ],
   "author": "Belote Game Team",
   "license": "MIT"
 }
