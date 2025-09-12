@@ -52,7 +52,7 @@ export class SmartAI extends BeloteAI {
     const bestCard = cardEvaluations[0]!
 
     // Generate reasoning
-    let reasoning = this.generateReasoning(bestCard, trickInfo, context)
+    const reasoning = this.generateReasoning(bestCard, trickInfo, context)
 
     return {
       card: bestCard.card,

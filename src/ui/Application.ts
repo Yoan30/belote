@@ -3,6 +3,7 @@ import { SceneManager } from './scenes/SceneManager.js';
 import { AudioManager } from './audio/AudioManager.js';
 import { SettingsManager } from './settings/SettingsManager.js';
 import { I18nManager } from './i18n/I18nManager.js';
+import { DebugOverlay } from './debug/DebugOverlay.js';
 
 export class GameApplication {
   public app: PIXI.Application;
@@ -10,8 +11,10 @@ export class GameApplication {
   public audioManager: AudioManager;
   public settingsManager: SettingsManager;
   public i18nManager: I18nManager;
+  public debugOverlay: DebugOverlay;
 
   private resizeHandler = () => this.handleResize();
+  private keyHandler = (event: KeyboardEvent) => this.handleKeyPress(event);
 
   constructor() {
     // Initialize managers first
@@ -30,6 +33,7 @@ export class GameApplication {
     });
     
     this.sceneManager = new SceneManager(this);
+    this.debugOverlay = new DebugOverlay(this);
   }
 
   async initialize(): Promise<void> {
@@ -42,6 +46,7 @@ export class GameApplication {
 
     // Set up event listeners
     window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener('keydown', this.keyHandler);
 
     // Initialize managers
     await this.settingsManager.load();
@@ -50,6 +55,15 @@ export class GameApplication {
     
     // Start the scene manager
     this.sceneManager.initialize();
+    
+    // Position debug overlay
+    this.debugOverlay.handleResize();
+    
+    // Show debug overlay if enabled in settings
+    const settings = this.settingsManager.getSettings();
+    if (settings.ui.debugMode) {
+      this.debugOverlay.toggle();
+    }
     
     // Hide loading screen
     const loading = document.getElementById('loading');
@@ -61,10 +75,25 @@ export class GameApplication {
   private handleResize(): void {
     this.app.renderer.resize(window.innerWidth, window.innerHeight);
     this.sceneManager.handleResize();
+    this.debugOverlay.handleResize();
+  }
+
+  private handleKeyPress(event: KeyboardEvent): void {
+    // Debug overlay toggle (F3 or Ctrl+D)
+    if (event.key === 'F3' || (event.ctrlKey && event.key === 'd')) {
+      event.preventDefault();
+      this.debugOverlay.toggle();
+      
+      // Update settings
+      const settings = this.settingsManager.getSettings();
+      this.settingsManager.updateUISettings({ debugMode: !settings.ui.debugMode });
+    }
   }
 
   destroy(): void {
     window.removeEventListener('resize', this.resizeHandler);
+    window.removeEventListener('keydown', this.keyHandler);
+    this.debugOverlay.destroy();
     this.sceneManager.destroy();
     this.audioManager.destroy();
     this.app.destroy(true);
