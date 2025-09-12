@@ -1,18 +1,21 @@
+/** ESLint config – TypeScript actif */
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2021: true, node: true },
+  parser: '@typescript-eslint/parser',
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  plugins: ['@typescript-eslint', 'import'],
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'prettier',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules', '**/*.ts', '**/*.tsx'],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
+  settings: { 'import/resolver': { typescript: true } },
+  // ❗ Surtout ne pas ignorer les fichiers .ts/.tsx
+  ignorePatterns: ['dist/', 'node_modules/'],
   rules: {
-    'prefer-const': 'error',
-    'no-var': 'error',
-    'object-shorthand': 'error',
-    'prefer-template': 'error',
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
-}
+};
