@@ -39,8 +39,17 @@
     "vite": "^5.1.6",
     "vitest": "^1.4.0"
   },
-  "engines": { "node": ">=18.0.0" },
-  "keywords": ["belote", "card-game", "typescript", "pixijs", "pwa", "game"],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "belote",
+    "card-game",
+    "typescript",
+    "pixijs",
+    "pwa",
+    "game"
+  ],
   "author": "Belote Game Team",
   "license": "MIT"
 }
