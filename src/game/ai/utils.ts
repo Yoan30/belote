@@ -1,5 +1,5 @@
-import { Card } from '../models/Card.js'
-import { Rank, Suit } from '../models/Types.js'
+import { Card } from ''
+import { Rank, Suit } from ''
 
 /**
  * Utility functions for AI implementations

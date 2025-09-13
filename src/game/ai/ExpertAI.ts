@@ -1,6 +1,6 @@
-import { Card } from '../models/Card.js'
-import { BeloteAI, AIContext, AIDecision } from './BeloteAI.js'
-import { AILevel } from '../models/Types.js'
+import { Card } from ''
+import { BeloteAI, AIContext, AIDecision } from ''
+import { AILevel } from ''
 
 /**
  * Expert AI with advanced strategy and rare mistakes

@@ -1,8 +1,8 @@
-import { Deck } from './Deck.js'
-import { Player } from './Player.js'
-import { Trick } from './Trick.js'
-import { TeamScore } from './Team.js'
-import { Position, Suit, Team, type RoundId, type TrickId } from './Types.js'
+import { Deck } from ''
+import { Player } from ''
+import { Trick } from ''
+import { TeamScore } from ''
+import { Position, Suit, Team, type RoundId, type TrickId } from ''
 
 export class Round {
   public readonly id: RoundId

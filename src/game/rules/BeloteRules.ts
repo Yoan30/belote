@@ -1,7 +1,7 @@
-import { Card } from '../models/Card.js'
-import { Hand } from '../models/Hand.js'
-import { Trick } from '../models/Trick.js'
-import { Suit, Position } from '../models/Types.js'
+import { Card } from ''
+import { Hand } from ''
+import { Trick } from ''
+import { Suit, Position } from ''
 
 export class BeloteRules {
   /**

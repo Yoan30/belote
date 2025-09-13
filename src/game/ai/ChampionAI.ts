@@ -1,6 +1,6 @@
-import { Card } from '../models/Card.js'
-import { BeloteAI, AIContext, AIDecision } from './BeloteAI.js'
-import { AILevel, Suit, Team } from '../models/Types.js'
+import { Card } from ''
+import { BeloteAI, AIContext, AIDecision } from ''
+import { AILevel, Suit, Team } from ''
 
 /**
  * Champion AI with near-optimal play and very rare mistakes

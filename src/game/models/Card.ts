@@ -1,4 +1,4 @@
-import { Suit, Rank, CardValue, type CardId } from './Types.js'
+import { Suit, Rank, CardValue, type CardId } from ''
 
 // Card values for scoring - normal (non-trump) and trump
 const CARD_VALUES: Record<Rank, CardValue> = {

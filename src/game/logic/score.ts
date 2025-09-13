@@ -1,5 +1,5 @@
-import { Trick } from '../models/Trick.js'
-import { Team, Suit, Position, ScoreData } from '../models/Types.js'
+import { Trick } from ''
+import { Team, Suit, Position, ScoreData } from ''
 
 /**
  * Calculate points for a single trick

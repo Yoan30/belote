@@ -1,4 +1,4 @@
-import { Team, ScoreData } from './Types.js'
+import { Team, ScoreData } from ''
 
 export class TeamScore {
   public readonly team: Team

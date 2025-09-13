@@ -1,5 +1,5 @@
-import { Card } from './Card.js'
-import { Position, Suit, type TrickId } from './Types.js'
+import { Card } from ''
+import { Position, Suit, type TrickId } from ''
 
 export interface TrickPlay {
   position: Position

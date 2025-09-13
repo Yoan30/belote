@@ -1,7 +1,7 @@
-import { Player } from './Player.js'
-import { Round } from './Round.js'
-import { TeamScore } from './Team.js'
-import { Position, Phase, Team, GameSettings, type PlayerId, type RoundId } from './Types.js'
+import { Player } from ''
+import { Round } from ''
+import { TeamScore } from ''
+import { Position, Phase, Team, GameSettings, type PlayerId, type RoundId } from ''
 
 export class GameState {
   public readonly gameId: string

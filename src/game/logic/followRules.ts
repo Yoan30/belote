@@ -1,8 +1,8 @@
-import { Card } from '../models/Card.js'
-import { Hand } from '../models/Hand.js'
-import { Trick } from '../models/Trick.js'
-import { BeloteRules } from '../rules/BeloteRules.js'
-import { Suit } from '../models/Types.js'
+import { Card } from ''
+import { Hand } from ''
+import { Trick } from ''
+import { BeloteRules } from ''
+import { Suit } from ''
 
 /**
  * Check if a player must follow the lead suit

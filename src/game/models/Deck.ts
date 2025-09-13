@@ -1,5 +1,5 @@
-import { Card } from './Card.js'
-import { Suit, Rank } from './Types.js'
+import { Card } from ''
+import { Suit, Rank } from ''
 
 export class Deck {
   private cards: Card[]

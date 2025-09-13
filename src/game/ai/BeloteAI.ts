@@ -1,9 +1,9 @@
-import { Card } from '../models/Card.js'
-import { Player } from '../models/Player.js'
-import { Trick } from '../models/Trick.js'
-import { Round } from '../models/Round.js'
-import { GameState } from '../models/GameState.js'
-import { AILevel, Suit, Position } from '../models/Types.js'
+import { Card } from ''
+import { Player } from ''
+import { Trick } from ''
+import { Round } from ''
+import { GameState } from ''
+import { AILevel, Suit, Position } from ''
 
 /**
  * AI decision context provided to AI implementations

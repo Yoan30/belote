@@ -1,5 +1,5 @@
-import { Hand } from './Hand.js'
-import { Position, Team, AILevel, type PlayerId } from './Types.js'
+import { Hand } from ''
+import { Position, Team, AILevel, type PlayerId } from ''
 
 export class Player {
   public readonly id: PlayerId

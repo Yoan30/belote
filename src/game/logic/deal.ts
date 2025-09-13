@@ -1,6 +1,6 @@
-import { Deck } from '../models/Deck.js'
-import { Player } from '../models/Player.js'
-import { Position } from '../models/Types.js'
+import { Deck } from ''
+import { Player } from ''
+import { Position } from ''
 
 /**
  * Deal cards to players in the standard Belote pattern

@@ -1,6 +1,6 @@
-import { Card } from '../models/Card.js'
-import { Player } from '../models/Player.js'
-import { Rank, Suit, Position, Team } from '../models/Types.js'
+import { Card } from ''
+import { Player } from ''
+import { Rank, Suit, Position, Team } from ''
 
 /**
  * Result of checking for Belote/Rebelote

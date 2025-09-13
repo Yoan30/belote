@@ -1,8 +1,8 @@
-import { Card } from '../models/Card.js'
-import { Player } from '../models/Player.js'
-import { Trick } from '../models/Trick.js'
-import { BeloteRules } from '../rules/BeloteRules.js'
-import { Position, Suit } from '../models/Types.js'
+import { Card } from ''
+import { Player } from ''
+import { Trick } from ''
+import { BeloteRules } from ''
+import { Position, Suit } from ''
 
 /**
  * Result of playing a card
