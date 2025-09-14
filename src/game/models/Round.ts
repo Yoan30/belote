@@ -1,5 +1,9 @@
-﻿import { ScoreBoard } from './score/ScoreBoard'
- param($m) $m.Value + "import { ScoreBoard } from './score/ScoreBoard'" + [Environment]::NewLine export class Round {
+﻿import { Trick } from './Trick';
+import { Deck } from './Deck';
+import { Player } from './Player';
+import { Suit, Position, Team, ScoreData, TrickId, RoundId } from './Types';
+import { ScoreBoard } from './score/ScoreBoard';
+export class Round {
   public readonly id: RoundId
   public readonly roundNumber: number
   public readonly trumpSuit: Suit
@@ -120,7 +124,7 @@
         if (player) {
           const ScoreData = this.teamScores.get(player.team)
           if (ScoreData) {
-            ScoreData.addCardPoints(trick.getTotalPoints())
+            ScoreData.addCardPoints?.(trick.getTotalPoints())
           }
         }
       }
@@ -135,7 +139,7 @@
         if (player) {
           const ScoreData = this.teamScores.get(player.team)
           if (ScoreData) {
-            ScoreData.addLastTrickBonus()
+            ScoreData.addLastTrickBonus?.(10)
           }
         }
       }
@@ -146,7 +150,7 @@
       if (player.hasCompleteBelote()) {
         const ScoreData = this.teamScores.get(player.team)
         if (ScoreData) {
-          ScoreData.addBeloteBonus()
+          ScoreData.addBeloteBonus?.(20)
         }
       }
     }
@@ -228,9 +232,13 @@
   public toString(): string {
     const nsScore = this.teamScores.get(Team.NS)
     const ewScore = this.teamScores.get(Team.EW)
-    return `Round ${this.roundNumber} (Trump: ${this.trumpSuit}) - NS: ${nsScore?.getRoundTotal() || 0}, EW: ${ewScore?.getRoundTotal() || 0}`
+    return `Round ${this.roundNumber} (Trump: ${this.trumpSuit}) - NS: ${nsScore?.getRoundTotal?.() || 0}, EW: ${ewScore?.getRoundTotal?.() || 0}`
   }
 }
+
+
+
+
 
 
 

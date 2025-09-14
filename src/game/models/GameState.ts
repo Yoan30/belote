@@ -1,5 +1,8 @@
-﻿import { ScoreBoard } from './score/ScoreBoard'
- param($m) $m.Value + "import { ScoreBoard } from './score/ScoreBoard'" + [Environment]::NewLine export class GameState {
+﻿import { Round } from './Round';
+import { Player } from './Player';
+import { Position, Team, Phase, PlayerId, RoundId, Suit, GameSettings, ScoreData , AILevel} from './Types';
+import { ScoreBoard } from './score/ScoreBoard';
+export class GameState {
   public readonly gameId: string
   public readonly settings: GameSettings
   public readonly players: Map<Position, Player>
@@ -49,7 +52,7 @@
         `ai_${i + 1}` as PlayerId,
         position,
         aiNames[i]!,
-        this.settings.aiLevel
+        (this.settings.aiLevel ?? AILevel.CONFIRME)
       )
       this.players.set(position, ai)
     }
@@ -67,7 +70,7 @@
       player.resetForNewRound()
     }
 
-    const round = new Round(roundId, roundNumber, this.settings.trump, this.players)
+    const round = new Round(roundId, roundNumber, (this.settings.trump ?? Suit.SPADES), this.players)
     this.rounds.push(round)
     this.currentRoundIndex = this.rounds.length - 1
     this.phase = Phase.DEALING
@@ -185,8 +188,8 @@
       const gameTeamScore = this.teamScores.get(team)
       
       if (roundTeamScore && gameTeamScore) {
-        const scoreData = roundTeamScore.finalizeRound()
-        gameTeamScore.gameScore += scoreData.total
+        roundTeamScore.finalizeRound?.(); const scoreData: any = roundTeamScore
+        gameTeamScore.gameScore += (scoreData.total ?? 0)
       }
     }
 
@@ -199,7 +202,7 @@
    */
   private checkGameEnd(): void {
     for (const [team, ScoreData] of this.teamScores) {
-      if (ScoreData.hasWon(this.settings.targetScore)) {
+      if (ScoreData.hasWon?.(this.settings.targetScore)) {
         this.gameCompleted = true
         this.winner = team
         this.phase = Phase.FINISHED
@@ -248,7 +251,7 @@
   public resetGame(): void {
     // Reset team scores
     for (const ScoreData of this.teamScores.values()) {
-      ScoreData.resetGame()
+      ScoreData.resetGame?.()
     }
 
     // Reset players
@@ -296,6 +299,12 @@
     return `Game ${this.gameId} - Round ${this.rounds.length} - NS: ${stats.scores.ns}, EW: ${stats.scores.ew} (Target: ${stats.targetScore})`
   }
 }
+
+
+
+
+
+
 
 
 
