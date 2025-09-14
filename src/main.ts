@@ -1,5 +1,7 @@
-﻿// src/main.ts — boot minimal PixiJS (Pixi v7 syntax)
 import { Application, Text, TextStyle } from "pixi.js";
+import { registerSW } from "./pwa/registerSW";
+
+registerSW();
 
 const app = new Application({
   resizeTo: window,
@@ -11,7 +13,11 @@ const mount = document.getElementById("app");
 if (!mount) throw new Error("Div #app introuvable dans index.html");
 mount.appendChild(app.view as HTMLCanvasElement);
 
+<<<<<<< HEAD
 const label = new Text("Belote", new TextStyle({ fill: 0xffffff, fontSize: 28 }));
+=======
+const label = new Text("Belote — v2 déployé ✅", new TextStyle({ fill: 0xffffff, fontSize: 28 }));
+>>>>>>> origin/main
 label.anchor.set(0.5);
 app.stage.addChild(label);
 
