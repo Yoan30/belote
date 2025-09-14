@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Belote</title>
 
-    <!-- Favicon (les fichiers de /public sont servis à la racine) -->
-    <link rel="icon" type="image/png" href="icon-192.png" />
-    <link rel="apple-touch-icon" href="icon-192.png" />
+    <!-- PWA / Manifest -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#0b132b" />
+
+    <!-- Icônes (doivent être dans /public) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
 
     <style>
       /* plein écran, sans marges */
@@ -18,6 +23,7 @@
   </head>
   <body>
     <div id="app"></div>
+    <!-- Vite détecte /src/main.ts et bundle pour la prod -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
