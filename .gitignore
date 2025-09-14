@@ -49,3 +49,6 @@ src/**/*.d.ts
 src/**/*.d.ts
 *.tsbuildinfo
 
+
+# Garder les typings Vite pour import.meta.env
+!src/vite-env.d.ts
