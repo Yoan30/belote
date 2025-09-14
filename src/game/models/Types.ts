@@ -81,3 +81,67 @@ export interface TeamScore {
     
 // Added for build: per-team score map
 
+/** Minimal scoring engine used par le jeu/IA. */
+export class ScoreData {
+  cardPoints: TeamScore
+  lastTrickBonus: TeamScore
+  beloteBonus: TeamScore
+  gameScore: TeamScore
+
+  constructor() {
+    this.cardPoints = { NS: 0, EW: 0 }
+    this.lastTrickBonus = { NS: 0, EW: 0 }
+    this.beloteBonus = { NS: 0, EW: 0 }
+    this.gameScore = { NS: 0, EW: 0 }
+  }
+
+  /** Remet à zéro les points de la manche en cours (pas le score de partie). */
+  private resetRound(): void {
+    this.cardPoints.NS = this.cardPoints.EW = 0
+    this.lastTrickBonus.NS = this.lastTrickBonus.EW = 0
+    this.beloteBonus.NS = this.beloteBonus.EW = 0
+  }
+
+  /** Remet tout à zéro (manche + score cumulé). */
+  resetGame(): void {
+    this.resetRound()
+    this.gameScore.NS = this.gameScore.EW = 0
+  }
+
+  addCardPoints(team: Team, pts: number): void {
+    if (team === Team.NS) this.cardPoints.NS += pts
+    else this.cardPoints.EW += pts
+  }
+
+  addLastTrickBonus(team: Team, pts: number): void {
+    if (team === Team.NS) this.lastTrickBonus.NS += pts
+    else this.lastTrickBonus.EW += pts
+  }
+
+  addBeloteBonus(team: Team, pts: number): void {
+    if (team === Team.NS) this.beloteBonus.NS += pts
+    else this.beloteBonus.EW += pts
+  }
+
+  /** Total de la manche courante pour l'équipe. */
+  getRoundTotal(team: Team): number {
+    if (team === Team.NS) {
+      return this.cardPoints.NS + this.lastTrickBonus.NS + this.beloteBonus.NS
+    }
+    return this.cardPoints.EW + this.lastTrickBonus.EW + this.beloteBonus.EW
+  }
+
+  /** Clôture la manche: cumule au score de partie et purge les compteurs de manche. */
+  finalizeRound(): void {
+    this.gameScore.NS += this.getRoundTotal(Team.NS)
+    this.gameScore.EW += this.getRoundTotal(Team.EW)
+    this.resetRound()
+  }
+
+  /** Renvoie l'équipe gagnante si un seuil est atteint (par défaut 1000), sinon null. */
+  hasWon(target: number = 1000): Team | null {
+    if (this.gameScore.NS >= target && this.gameScore.NS > this.gameScore.EW) return Team.NS
+    if (this.gameScore.EW >= target && this.gameScore.EW > this.gameScore.NS) return Team.EW
+    return null
+  }
+}
