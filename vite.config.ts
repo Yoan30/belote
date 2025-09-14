@@ -1,5 +1,5 @@
-﻿import { defineConfig } from "vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/belote/",   // important pour GitHub Pages (repo /belote)
+  base: "/belote/", // nécessaire pour GitHub Pages (projet 'belote')
 });
