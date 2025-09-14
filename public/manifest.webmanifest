@@ -1,6 +1,7 @@
 {
   "name": "Belote",
   "short_name": "Belote",
+<<<<<<< HEAD
   "description": "Jeu de Belote classique en ligne - Jouez seul contre 3 IA",
   "start_url": "/",
   "display": "standalone",
@@ -26,3 +27,11 @@
   "lang": "fr",
   "dir": "ltr"
 }
+=======
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0c0f17",
+  "theme_color": "#346a1c",
+  "icons": []
+}
+>>>>>>> origin/main

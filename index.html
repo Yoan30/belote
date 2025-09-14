@@ -4,11 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Belote</title>
+    <style>
+      /* plein écran, sans marges */
+      html, body { height: 100%; margin: 0; }
+      #app { height: 100%; }
+      canvas { display: block; }
+    </style>
   </head>
   <body>
-    <div id="app">Belote build placeholder</div>
-    <script type="module">
-      console.log("Belote build ok");
-    </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

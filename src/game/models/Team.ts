@@ -53,7 +53,7 @@ export class TeamScore {
       total: this.getRoundTotal(),
     }
 
-    this.gameScore += roundData.total
+    this.gameScore += (roundData.total ?? 0)
     this.resetRound()
     
     return roundData
@@ -107,6 +107,7 @@ export class TeamScore {
     return copy
   }
 }
+
 
 
 

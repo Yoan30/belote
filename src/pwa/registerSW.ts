@@ -5,4 +5,7 @@ export function registerSW() {
     });
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
