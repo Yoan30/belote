@@ -1,4 +1,4 @@
-// Core types for Belote game
+﻿// Core types for Belote game
 
 export enum Suit {
   SPADES = 'spades',
@@ -71,3 +71,10 @@ export type PlayerId = string
 export type CardId = string
 export type TrickId = string
 export type RoundId = string
+
+//
+// ---- Added for build (TeamScore shape) ----
+export interface TeamScore {
+  NS: number;
+  EW: number;
+}
