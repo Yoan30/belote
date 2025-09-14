@@ -1,4 +1,5 @@
-﻿// Core types for Belote game
+﻿/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
+// Core types for Belote game
 
 export enum Suit {
   SPADES = 'spades',
@@ -137,4 +138,5 @@ export class ScoreData {
     return null
   }
 }
+
 
