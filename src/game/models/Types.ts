@@ -80,4 +80,4 @@ export interface TeamScore {
 }
     
 // Added for build: per-team score map
-export type TeamScore = Record<string, number>;
+
