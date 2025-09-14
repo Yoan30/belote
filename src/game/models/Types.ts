@@ -51,14 +51,6 @@ export interface CardValue {
   order: number    // Playing order (for trick-taking)
   trumpOrder: number // Playing order when trump
 }
-
-export interface ScoreData {
-  cardPoints: number
-  beloteBonus: number
-  lastTrickBonus: number
-  total: number
-}
-
 export interface GameSettings {
   targetScore: number
   aiLevel: AILevel
@@ -145,3 +137,4 @@ export class ScoreData {
     return null
   }
 }
+
