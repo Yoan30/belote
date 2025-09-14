@@ -40,3 +40,12 @@ logs/
 # Temporary
 tmp/
 temp/
+# Don't commit generated declaration files
+src/**/*.d.ts
+*.tsbuildinfo
+
+
+# Ignore TS declarations in src
+src/**/*.d.ts
+*.tsbuildinfo
+
