@@ -75,15 +75,8 @@ export interface TeamScore {
 // Added for build: per-team score map
 
 /** Minimal scoring engine used par le jeu/IA. */
-export class ScoreData {
-  cardPoints: TeamScore
-  lastTrickBonus: TeamScore
-  beloteBonus: TeamScore
-  gameScore: TeamScore
-
-  constructor() {
-    this.cardPoints = { NS: 0, EW: 0 }
-    this.lastTrickBonus = { NS: 0, EW: 0 }
+/* removed: class ScoreData (déplacé dans score/ScoreBoard) */
+this.lastTrickBonus = { NS: 0, EW: 0 }
     this.beloteBonus = { NS: 0, EW: 0 }
     this.gameScore = { NS: 0, EW: 0 }
   }
@@ -138,5 +131,6 @@ export class ScoreData {
     return null
   }
 }
-
-
+  
+// Alias: ScoreData devient le type de la classe ScoreBoard
+export type ScoreData = import('./score/ScoreBoard').ScoreBoard;

@@ -1,8 +1,5 @@
-﻿import { Deck } from './Deck'
-import { Player } from './Player'
-import { Trick } from './Trick'
-import { ScoreData, Position, Suit, Team, type RoundId, type TrickId } from './Types'
-export class Round {
+﻿import { ScoreBoard } from './score/ScoreBoard'
+ param($m) $m.Value + "import { ScoreBoard } from './score/ScoreBoard'" + [Environment]::NewLine export class Round {
   public readonly id: RoundId
   public readonly roundNumber: number
   public readonly trumpSuit: Suit
@@ -24,8 +21,8 @@ export class Round {
     this.trumpSuit = trumpSuit
     this.players = new Map(players)
     this.teamScores = new Map([
-      [Team.NS, new ScoreData(Team.NS)],
-      [Team.EW, new ScoreData(Team.EW)],
+      [Team.NS, new ScoreBoard(Team.NS)],
+      [Team.EW, new ScoreBoard(Team.EW)],
     ])
     this.deck = new Deck()
     this.tricks = []
@@ -234,6 +231,7 @@ export class Round {
     return `Round ${this.roundNumber} (Trump: ${this.trumpSuit}) - NS: ${nsScore?.getRoundTotal() || 0}, EW: ${ewScore?.getRoundTotal() || 0}`
   }
 }
+
 
 
 

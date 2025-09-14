@@ -1,7 +1,5 @@
-﻿import { Player } from './Player'
-import { Round } from './Round'
-import { Position, Phase, Team, GameSettings, ScoreData, type PlayerId, type RoundId } from './Types'
-export class GameState {
+﻿import { ScoreBoard } from './score/ScoreBoard'
+ param($m) $m.Value + "import { ScoreBoard } from './score/ScoreBoard'" + [Environment]::NewLine export class GameState {
   public readonly gameId: string
   public readonly settings: GameSettings
   public readonly players: Map<Position, Player>
@@ -19,8 +17,8 @@ export class GameState {
     this.settings = { ...settings }
     this.players = new Map()
     this.teamScores = new Map([
-      [Team.NS, new ScoreData(Team.NS)],
-      [Team.EW, new ScoreData(Team.EW)],
+      [Team.NS, new ScoreBoard(Team.NS)],
+      [Team.EW, new ScoreBoard(Team.EW)],
     ])
     this.rounds = []
     this.currentRoundIndex = -1
@@ -298,6 +296,7 @@ export class GameState {
     return `Game ${this.gameId} - Round ${this.rounds.length} - NS: ${stats.scores.ns}, EW: ${stats.scores.ew} (Target: ${stats.targetScore})`
   }
 }
+
 
 
 
