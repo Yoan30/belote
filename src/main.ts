@@ -1,0 +1,22 @@
+﻿// src/main.ts — boot minimal PixiJS (Pixi v7 syntax)
+import { Application, Text, TextStyle } from "pixi.js";
+
+const app = new Application({
+  resizeTo: window,
+  background: "#0b132b",
+  antialias: true,
+});
+
+const mount = document.getElementById("app");
+if (!mount) throw new Error("Div #app introuvable dans index.html");
+mount.appendChild(app.view as HTMLCanvasElement);
+
+const label = new Text("Belote — Pixi OK", new TextStyle({ fill: 0xffffff, fontSize: 28 }));
+label.anchor.set(0.5);
+app.stage.addChild(label);
+
+function center() {
+  label.position.set(app.renderer.width / 2, app.renderer.height / 2);
+}
+center();
+window.addEventListener("resize", center);
