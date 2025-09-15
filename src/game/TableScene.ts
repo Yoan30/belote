@@ -1,10 +1,12 @@
 ﻿import { Application, Container, Graphics, Text } from "pixi.js";
 import { computeLayout, Layout } from "./layout";
-import { tweenPositionRot, delayFrames, easeOutCubic } from "./tween";
+import { tweenCurvePositionRot, delayFrames, easeOutCubic } from "./tween";
 import { COLORS, CARD } from "./theme";
+import type { Scene } from "./Scene";
 
-export class TableScene {
-  private app: Application;
+export class TableScene implements Scene {
+  private app!: Application;
+  private root = new Container();
   private layoutData!: Layout;
 
   private table = new Graphics();
@@ -32,22 +34,30 @@ export class TableScene {
   });
 
   private handCount = [0, 0, 0, 0];
+  private onResize = () => this.layout();
 
-  constructor(app: Application) {
+  mount(app: Application): void {
     this.app = app;
-    this.app.stage.sortableChildren = true;
+    this.root.sortableChildren = true;
+    this.app.stage.addChild(this.root);
 
     this.title.anchor.set(0.5);
     this.startBtn.anchor.set(0.5);
     this.startBtn.eventMode = "static";
     this.startBtn.cursor = "pointer";
 
-    app.stage.addChild(this.table, this.title, this.startBg, this.startBtn);
+    this.root.addChild(this.table, this.title, this.startBg, this.startBtn);
 
     this.layout();
-    window.addEventListener("resize", () => this.layout());
+    window.addEventListener("resize", this.onResize);
 
     this.startBtn.on("pointertap", () => this.onStart());
+  }
+
+  dispose(): void {
+    window.removeEventListener("resize", this.onResize);
+    this.root.removeFromParent();
+    this.root.destroy({ children: true });
   }
 
   private layout() {
@@ -57,14 +67,11 @@ export class TableScene {
     this.layoutData = computeLayout(w, h);
     const { table, card } = this.layoutData;
 
-    // TABLE avec bord plus élégant
     this.table.clear();
-    // Ombre extérieure légère (faux relief)
     this.table
       .roundRect(table.x, table.y, table.w, table.h, table.radius)
       .fill(COLORS.table)
       .stroke({ color: COLORS.tableEdge, width: 8, alpha: 0.7 });
-    // liseré intérieur
     this.table
       .roundRect(table.x + 6, table.y + 6, table.w - 12, table.h - 12, table.radius)
       .stroke({ color: COLORS.tableHighlight, width: 2, alpha: 0.25 });
@@ -95,7 +102,6 @@ export class TableScene {
     this.title.text = "Round 1";
   }
 
-  /** Carte avec ombre douce, centrée sur (0,0) pour rotations propres */
   private createCard(): Container {
     const { card } = this.layoutData;
     const c = new Container();
@@ -120,29 +126,25 @@ export class TableScene {
     face.zIndex = 1;
 
     c.addChild(shadow, face);
-    c.zIndex = 10; // au-dessus de la table
+    c.zIndex = 10;
     return c;
   }
 
-  /**
-   * Calcule position + rotation cible pour une main donnée et index.
-   * Eventail léger : ~4° par carte, clampé à ±14°.
-   */
+  /** Cible éventail + rotation de la main */
   private handTarget(player: number, indexInHand: number): { x: number; y: number; rot: number } {
     const { hands, card } = this.layoutData;
     const anchor = hands[player];
 
     const spread = (anchor.dir === "h" ? card.w : card.h) * 0.36;
-    const centeredIndex = indexInHand - 3.5; // 8 cartes : centre entre 3 et 4
+    const centeredIndex = indexInHand - 3.5;
 
-    const angleStep = (4 * Math.PI) / 180; // 4°
-    const maxAngle = (14 * Math.PI) / 180; // clamp ±14°
+    const angleStep = (4 * Math.PI) / 180;
+    const maxAngle = (14 * Math.PI) / 180;
     const fan = Math.max(-maxAngle, Math.min(maxAngle, centeredIndex * angleStep));
 
     let base = 0;
-    if (player === 1) base = -Math.PI / 2; // gauche
-    if (player === 3) base = Math.PI / 2; // droite
-    // top (2) et bottom (0) -> base = 0
+    if (player === 1) base = -Math.PI / 2;
+    if (player === 3) base = Math.PI / 2;
 
     if (anchor.dir === "h") {
       return { x: Math.round(anchor.x + centeredIndex * spread), y: anchor.y, rot: base + fan };
@@ -154,7 +156,6 @@ export class TableScene {
   private async dealThreeTwoThree() {
     const counts = [3, 2, 3];
     const deck = this.layoutData.deck;
-
     this.handCount = [0, 0, 0, 0];
 
     for (const c of counts) {
@@ -163,14 +164,41 @@ export class TableScene {
           const card = this.createCard();
           card.position.set(deck.x, deck.y);
           card.rotation = 0;
-          this.app.stage.addChild(card);
+          this.root.addChild(card);
 
           const idx = this.handCount[player];
           const target = this.handTarget(player, idx);
           this.handCount[player] = idx + 1;
 
-          const dur = 260 + Math.round(Math.random() * 60); // léger jitter
-          await tweenPositionRot(this.app, card, target.x, target.y, target.rot, dur, easeOutCubic);
+          // Control point (bezier) = milieu + normal * offset (courbe douce)
+          const midX = (deck.x + target.x) / 2;
+          const midY = (deck.y + target.y) / 2;
+          const dx = target.x - deck.x;
+          const dy = target.y - deck.y;
+          const len = Math.max(1, Math.hypot(dx, dy));
+          const nx = -dy / len;
+          const ny = dx / len;
+          const offset = Math.min(120, len * 0.18) * (player === 0 || player === 1 ? 1 : -1);
+          const ctrlX = midX + nx * offset;
+          const ctrlY = midY + ny * offset;
+
+          // léger zoom out pendant le vol
+          const dur = 260 + Math.round(Math.random() * 60);
+          await tweenCurvePositionRot(
+            this.app,
+            card,
+            deck.x,
+            deck.y,
+            ctrlX,
+            ctrlY,
+            target.x,
+            target.y,
+            target.rot,
+            dur,
+            easeOutCubic,
+            1.0,
+            0.98
+          );
           await delayFrames(this.app, 2);
         }
         await delayFrames(this.app, 4);
