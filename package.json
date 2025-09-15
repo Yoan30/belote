@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "howler": "^2.2.4",
-    "pixi.js": "^7.3.2",
+    "pixi.js": "^8.13.2",
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
